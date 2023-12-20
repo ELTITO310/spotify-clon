@@ -1,6 +1,7 @@
-import { Play, Pause } from "./Player";
+import Play from '@/icons/Play'
+import Pause from '@/icons/Pause';
 import { usePlayerStore } from "@/store/playerStore";
-import {allPlaylists, songs as allSongs} from '@/lib/data'
+import {allPlaylists, songs as allSongs, type Song} from '@/lib/data'
 
 export const Time = () => {
   return (
@@ -18,15 +19,17 @@ export const Time = () => {
   );
 };
 
-const MusicTables = (props) => {
+interface Props {
+  songs: Song[]
+}
 
-  const {songs} = props;
+const MusicTables = ({songs}: Props) => {
 
   const { currentMusic, setCurrentMusic, setIsPlaying, isPlaying } = usePlayerStore(
     (state) => state
   );
 
-  const handlePlayClick = (song) => {
+  const handlePlayClick = (song: Song) => {
     if(currentMusic?.song?.id === song.id) {
       const isPlay = isPlaying && currentMusic?.song?.id === song.id
       if(isPlay) {
@@ -35,7 +38,7 @@ const MusicTables = (props) => {
         setIsPlaying(true)
       }
     } else {
-      const playlist = allPlaylists.find(pl => pl.albumId === song.albumId)
+      const playlist = allPlaylists.find(pl => pl.albumId === song.albumId) ?? null;
       const songs = allSongs.filter(s => s.albumId === song.albumId)
       setCurrentMusic({songs, playlist, song: song})
       setIsPlaying(true)

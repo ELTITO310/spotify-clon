@@ -3,10 +3,10 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { type Playlist, type Song } from '@/lib/data'
 
 interface PlayerStore {
-  isPlaying: boolean,
+  isPlaying: boolean | undefined,
   currentMusic: {
     playlist: Playlist | null,
-    song: Song | null,
+    song: Song | null | undefined,
     songs: Song[]
   },
   volume: number,

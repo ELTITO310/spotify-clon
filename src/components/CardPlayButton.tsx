@@ -1,10 +1,14 @@
-import {Play, Pause} from './Player';
+import Play from '@/icons/Play';
+import Pause from '@/icons/Pause'
 import {usePlayerStore} from '@/store/playerStore';
 
-const CardPlayButton = ({id, size = 'small'}) => {
+const CardPlayButton = ({id, size = 'small'}: {
+    id: string,
+    size: string
+}) => {
 
     const {isPlaying, setIsPlaying, currentMusic, setCurrentMusic} = usePlayerStore()
-    const isPlayingPlaylist = isPlaying && currentMusic?.playlist.id === id
+    const isPlayingPlaylist = isPlaying && currentMusic?.playlist?.id === id
     
     const handleClick = () => {
         if(isPlayingPlaylist) {
